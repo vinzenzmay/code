@@ -1,0 +1,30 @@
+import numpy as np
+def print_dot(seq1, seq2, k=5, print_to_terminal=False):
+    # Create a list of k-mers from seq1
+    seq1_kmers = np.zeros(len(seq1) - k+1)
+    for i in range(len(seq1) - (k-1)):
+        seq1_kmers[i] = hash(seq1[i:i+k])
+    # Create a list of k-mers from seq2
+    seq2_kmers = np.zeros(len(seq1) - k+1)
+    for i in range(len(seq2) - (k-1)):
+        seq2_kmers[i] = hash(seq2[i:i+k])
+    # Create a matrix of 0's
+    matrix = np.zeros((len(seq1_kmers), len(seq2_kmers)))
+    # Fill in the matrix with 1's
+    for i in range(len(seq1_kmers)):
+        for j in range(len(seq2_kmers)):
+            if seq1_kmers[i] == seq2_kmers[j]:
+                matrix[i][j] = 1
+    # Print the matrix
+    if print_to_terminal:
+        for i in range(len(seq1_kmers)):
+            for j in range(len(seq2_kmers)):
+                print(matrix[i][j], end=" ")
+            print()
+    return matrix
+
+# A small test example
+s1="AATGACTGGGACTATTATAAAAATGCTCTCGCTGACT"
+s2="CGTAGATATGGGACTATTATAAAAATGCTCTACCGTC"
+k=5
+print_dot(s1,s2,k,True)
