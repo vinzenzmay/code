@@ -1,7 +1,10 @@
 import numpy as np
-import matplotlib.pyplot as plt
+import argparse
 
-def print_dot(seq1, seq2, k=5, print_to_terminal=False):
+def print_dot(seq1:str, seq2:str, k:int=5, print_to_terminal:bool=False) -> np.array:
+    """
+    computes a dot plot matrix and returns a matrix. k must be greater than 0. Printing to terminal is optional.
+    """
     # Create a list of k-mers from seq1
     seq1_kmers = np.zeros(len(seq1) - k+1)
     for i in range(len(seq1) - (k-1)):
@@ -25,10 +28,25 @@ def print_dot(seq1, seq2, k=5, print_to_terminal=False):
             print()
     return matrix
 
-# A small test example
-s1="AATGACTGGGACTATTATAAAAATGCTCTCGCTGACT"
-s2="CGTAGATATGGGACTATTATAAAAATGCTCTACCGTC"
-k=5
-# print and plot to img
-matrix = print_dot(s1,s2,k,True)
-plt.imshow(matrix)
+
+def run():
+    parser = argparse.ArgumentParser(description="Prints a dot plot matrix")
+    parser.add_argument("seq1", type=str, help="First sequence")
+    parser.add_argument("seq2", type=str, help="Second sequence")
+    parser.add_argument("-k", type=int, default=5, help="Length of k-mers")
+    parser.add_argument("-p", action="store_true", help="Print to terminal")
+    args = parser.parse_args()
+    print_dot(args.seq1, args.seq2, args.k, args.p)
+
+
+if __name__ == "__main__":
+    run()
+
+# # A small test example
+# s1="AATGACTGGGACTATTATAAAAATGCTCTCGCTGACT"
+# s2="CGTAGATATGGGACTATTATAAAAATGCTCTACCGTC"
+# k=5
+# # print and plot to img
+# import matplotlib.pyplot as plt
+# matrix = print_dot(s1,s2,k,True)
+# plt.imshow(matrix)
