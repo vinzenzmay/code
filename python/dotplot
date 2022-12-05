@@ -1,4 +1,6 @@
 import numpy as np
+import matplotlib.pyplot as plt
+
 def print_dot(seq1, seq2, k=5, print_to_terminal=False):
     # Create a list of k-mers from seq1
     seq1_kmers = np.zeros(len(seq1) - k+1)
@@ -27,4 +29,6 @@ def print_dot(seq1, seq2, k=5, print_to_terminal=False):
 s1="AATGACTGGGACTATTATAAAAATGCTCTCGCTGACT"
 s2="CGTAGATATGGGACTATTATAAAAATGCTCTACCGTC"
 k=5
-print_dot(s1,s2,k,True)
+# print and plot to img
+matrix = print_dot(s1,s2,k,True)
+plt.imshow(matrix)
